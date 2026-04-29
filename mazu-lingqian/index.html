@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>妈祖灵签</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 顶部导航栏 -->
+        <nav id="navbar">
+            <div class="nav-inner">
+                <span class="nav-title" data-i18n="nav_title">妈祖灵签</span>
+                <div class="nav-actions">
+                    <button id="btn-lang" class="nav-btn" title="繁简切换">繁</button>
+                    <button id="btn-sound" class="nav-btn" title="音效开关">🔊</button>
+                    <button id="btn-dark" class="nav-btn" title="深色模式">🌙</button>
+                    <button id="btn-history" class="nav-btn" title="历史记录">📜</button>
+                    <button id="btn-about" class="nav-btn" title="关于">ℹ️</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 首页 -->
+        <section id="page-home" class="page active">
+            <div class="home-bg"></div>
+            <div class="home-content">
+                <div class="home-icon">
+                    <img class="mazu-svg mazu-photo" src="img/mazu_new.jpg" alt="妈祖神像">
+                </div>
+                <h1 class="home-title" data-i18n="home_title">妈祖灵签</h1>
+                <p class="home-subtitle" data-i18n="home_subtitle">虔诚祈求 妈祖赐签</p>
+                <button id="btn-start" class="btn-primary" data-i18n="btn_start">开始求签</button>
+            </div>
+        </section>
+
+        <!-- 求签页 -->
+        <section id="page-draw" class="page">
+            <div class="draw-content">
+                <button id="btn-draw-back" class="btn-back draw-back" data-i18n="btn_back">← 返回</button>
+                <h2 class="page-title" data-i18n="draw_title">虔诚摇签</h2>
+                <p class="draw-hint" data-i18n="draw_hint">心中默念所求之事，然后点击摇签</p>
+                <div class="qiantong-wrapper">
+                    <div id="qiantong" class="qiantong">
+                        <div class="qiantong-body">
+                            <div class="qiantong-sticks" aria-hidden="true">
+                                <span class="stick stick-1"></span>
+                                <span class="stick stick-2"></span>
+                                <span class="stick stick-3"></span>
+                                <span class="stick stick-4"></span>
+                                <span class="stick stick-5"></span>
+                                <span class="stick stick-6"></span>
+                                <span class="stick stick-7"></span>
+                                <span class="stick stick-8"></span>
+                                <span class="stick stick-9"></span>
+                                <span class="stick stick-10"></span>
+                                <span class="qiantong-stick" id="qiantong-stick"></span>
+                            </div>
+                            <div class="qiantong-rim"></div>
+                            <div class="qiantong-bottom">
+                                <span class="qiantong-seal">籤</span>
+                            </div>
+                            <div class="qiantong-foot"></div>
+                        </div>
+                    </div>
+                </div>
+                <button id="btn-shake" class="btn-primary btn-shake" data-i18n="btn_shake">摇签</button>
+                <div id="draw-result" class="draw-result hidden">
+                    <p class="draw-result-text" data-i18n="draw_result">您抽到了第 <span id="draw-number">0</span> 签</p>
+                    <button id="btn-confirm" class="btn-primary" data-i18n="btn_confirm">掷杯确认</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 掷杯页 -->
+        <section id="page-cup" class="page">
+            <div class="cup-content">
+                <h2 class="page-title" data-i18n="cup_title">掷杯问神</h2>
+                <p class="cup-hint" data-i18n="cup_hint">请掷杯请示妈祖，确认此签</p>
+                <div class="cups-wrapper">
+                    <div id="cup-left" class="cup cup-left">
+                        <div class="cup-inner"></div>
+                    </div>
+                    <div id="cup-right" class="cup cup-right">
+                        <div class="cup-inner"></div>
+                    </div>
+                </div>
+                <button id="btn-throw" class="btn-primary" data-i18n="btn_throw">掷杯</button>
+                <div id="cup-result" class="cup-result hidden">
+                    <p id="cup-result-text" class="cup-result-text"></p>
+                    <button id="btn-cup-next" class="btn-primary"></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 解签详情页 -->
+        <section id="page-detail" class="page">
+            <div class="detail-content">
+                <button id="btn-back-home" class="btn-back" data-i18n="btn_back">← 返回</button>
+                <div class="detail-card">
+                    <div class="detail-header">
+                        <span class="detail-number" id="detail-number"></span>
+                        <span class="detail-level" id="detail-level"></span>
+                    </div>
+                    <div class="detail-poem" id="detail-poem"></div>
+                    <div class="detail-section">
+                        <h3 data-i18n="detail_interpretation">解曰</h3>
+                        <p id="detail-interpretation"></p>
+                    </div>
+                    <div class="detail-section">
+                        <h3 data-i18n="detail_fortune">运势</h3>
+                        <div class="fortune-grid">
+                            <div class="fortune-item">
+                                <span class="fortune-label" data-i18n="fortune_career">事业</span>
+                                <span class="fortune-value" id="fortune-career"></span>
+                            </div>
+                            <div class="fortune-item">
+                                <span class="fortune-label" data-i18n="fortune_wealth">财运</span>
+                                <span class="fortune-value" id="fortune-wealth"></span>
+                            </div>
+                            <div class="fortune-item">
+                                <span class="fortune-label" data-i18n="fortune_love">姻缘</span>
+                                <span class="fortune-value" id="fortune-love"></span>
+                            </div>
+                            <div class="fortune-item">
+                                <span class="fortune-label" data-i18n="fortune_health">健康</span>
+                                <span class="fortune-value" id="fortune-health"></span>
+                            </div>
+                            <div class="fortune-item">
+                                <span class="fortune-label" data-i18n="fortune_travel">出行</span>
+                                <span class="fortune-value" id="fortune-travel"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button id="btn-restart" class="btn-primary" data-i18n="btn_restart">再求一签</button>
+            </div>
+        </section>
+
+        <!-- 历史记录页 -->
+        <section id="page-history" class="page">
+            <div class="history-content">
+                <div class="history-header">
+                    <h2 class="page-title" data-i18n="history_title">求签记录</h2>
+                    <button id="btn-clear-history" class="btn-small btn-danger" data-i18n="btn_clear">清空记录</button>
+                </div>
+                <div id="history-list" class="history-list"></div>
+                <div id="history-empty" class="history-empty hidden" data-i18n="history_empty">暂无求签记录</div>
+                <button id="btn-history-back" class="btn-primary" data-i18n="btn_back">返回</button>
+            </div>
+        </section>
+
+        <!-- 关于页 -->
+        <section id="page-about" class="page">
+            <div class="about-content">
+                <h2 class="page-title" data-i18n="about_title">关于</h2>
+                <div class="about-card">
+                    <div class="about-icon">
+                        <svg class="mazu-svg-small" viewBox="0 0 120 168" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="robeGrad3" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#D32F2F"/>
+                                    <stop offset="100%" style="stop-color:#B71C1C"/>
+                                </linearGradient>
+                                <linearGradient id="crownGrad3" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#FFD700"/>
+                                    <stop offset="100%" style="stop-color:#B8860B"/>
+                                </linearGradient>
+                            </defs>
+                            <path d="M35 160 Q35 108 48 96 Q57 90 60 89 Q63 90 72 96 Q85 108 85 160 Z" fill="url(#robeGrad3)" stroke="#FFD700" stroke-width="1.5"/>
+                            <path d="M45 102 Q57 107 60 105 Q63 107 75 102" fill="none" stroke="#FFD700" stroke-width="1.5"/>
+                            <ellipse cx="60" cy="69" rx="17" ry="19" fill="#FFE4C4"/>
+                            <path d="M36 42 Q36 30 48 27 Q60 24 72 27 Q84 30 84 42 Q84 51 72 54 Q60 57 48 54 Q36 51 36 42" fill="url(#crownGrad3)" stroke="#8B4513" stroke-width="1"/>
+                            <circle cx="60" cy="33" r="4" fill="#D32F2F"/>
+                            <ellipse cx="55" cy="66" rx="2.5" ry="3" fill="#2C1810"/>
+                            <ellipse cx="65" cy="66" rx="2.5" ry="3" fill="#2C1810"/>
+                            <path d="M57 72 Q60 75 63 72" fill="none" stroke="#D32F2F" stroke-width="1" stroke-linecap="round"/>
+                            <rect x="53" y="86" width="14" height="5" rx="1.5" fill="url(#crownGrad3)" stroke="#8B4513" stroke-width="0.5"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="about_app_name">妈祖灵签</h3>
+                    <p data-i18n="about_desc">本应用为纯本地离线版妈祖灵签浏览器应用，无后端、无网络请求、无广告、不上传任何数据。签文仅供参考，请理性对待。</p>
+                    <div class="about-info">
+                        <p data-i18n="about_version">版本：1.0.0</p>
+                        <p data-i18n="about_signs">签数：六十签</p>
+                        <p data-i18n="about_storage">数据：本地存储</p>
+                        <p data-i18n="about_image_credit">图片：Rutger van der Maar / Wikimedia Commons / CC BY 2.0</p>
+                        <p data-i18n="about_jiaobei_credit">筊杯参考图：Geographyinitiative / Wikimedia Commons / CC BY-SA 4.0</p>
+                    </div>
+                </div>
+                <button id="btn-about-back" class="btn-primary" data-i18n="btn_back">返回</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="js/fortunes.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
